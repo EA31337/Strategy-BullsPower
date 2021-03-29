@@ -16,7 +16,7 @@ INPUT int BullsPower_PriceStopMethod = 0;                                     //
 INPUT float BullsPower_PriceStopLevel = 0;                                    // Price stop level
 INPUT int BullsPower_TickFilterMethod = 1;                                    // Tick filter method
 INPUT float BullsPower_MaxSpread = 4.0;                                       // Max spread to trade (pips)
-INPUT int BullsPower_Shift = 0;             // Shift (relative to the current bar, 0 - default)
+INPUT short BullsPower_Shift = 0;           // Shift (relative to the current bar, 0 - default)
 INPUT int BullsPower_OrderCloseTime = -20;  // Order close time in mins (>0) or bars (<0)
 INPUT string __BullsPower_Indi_BullsPower_Parameters__ =
     "-- BullsPower strategy: BullsPower indicator params --";  // >>> BullsPower strategy: BullsPower indicator <<<
