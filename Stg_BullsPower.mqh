@@ -49,7 +49,7 @@ struct Stg_BullsPower_Params : StgParams {
 
   // Struct constructors.
   Stg_BullsPower_Params(BullsPowerParams &_iparams, StgParams &_sparams)
-      : iparams(indi_bulls_defaults, _iparams.tf), sparams(stg_bulls_defaults) {
+      : iparams(indi_bulls_defaults, _iparams.tf.GetTf()), sparams(stg_bulls_defaults) {
     iparams = _iparams;
     sparams = _sparams;
   }
