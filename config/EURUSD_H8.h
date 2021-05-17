@@ -17,11 +17,11 @@ struct stg_bulls_Params_H8 : StgParams {
   // Struct constructor.
   stg_bulls_Params_H8() : StgParams(stg_bulls_defaults) {
     lot_size = 0;
-    signal_open_method = 0;
+    signal_open_method = 64;
     signal_open_filter = 32;
     signal_open_level = (float)0;
     signal_open_boost = 0;
-    signal_close_method = 0;
+    signal_close_method = 64;
     signal_close_level = (float)0;
     price_stop_method = 0;
     price_stop_level = (float)2;

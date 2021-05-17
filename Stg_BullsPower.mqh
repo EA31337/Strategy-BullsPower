@@ -8,13 +8,13 @@ INPUT string __BullsPower_Parameters__ = "-- BullsPower strategy params --";  //
 INPUT float BullsPower_LotSize = 0;                                           // Lot size
 INPUT int BullsPower_SignalOpenMethod = 0;                                    // Signal open method (0-
 INPUT float BullsPower_SignalOpenLevel = 0.0f;                                // Signal open level
-INPUT int BullsPower_SignalOpenFilterMethod = 1;                              // Signal filter method
+INPUT int BullsPower_SignalOpenFilterMethod = 32;                             // Signal filter method
 INPUT int BullsPower_SignalOpenBoostMethod = 0;                               // Signal boost method
 INPUT int BullsPower_SignalCloseMethod = 0;                                   // Signal close method
 INPUT float BullsPower_SignalCloseLevel = 0.0f;                               // Signal close level
 INPUT int BullsPower_PriceStopMethod = 0;                                     // Price stop method
 INPUT float BullsPower_PriceStopLevel = 0;                                    // Price stop level
-INPUT int BullsPower_TickFilterMethod = 1;                                    // Tick filter method
+INPUT int BullsPower_TickFilterMethod = 32;                                   // Tick filter method
 INPUT float BullsPower_MaxSpread = 4.0;                                       // Max spread to trade (pips)
 INPUT short BullsPower_Shift = 0;           // Shift (relative to the current bar, 0 - default)
 INPUT int BullsPower_OrderCloseTime = -20;  // Order close time in mins (>0) or bars (<0)
@@ -101,43 +101,40 @@ class Stg_BullsPower : public Strategy {
       // Returns false when indicator data is not valid.
       return false;
     }
-    double level = _level * Chart().GetPipSize();
+    IndicatorSignal _signals = _indi.GetSignals(4, _shift);
     switch (_cmd) {
       case ORDER_TYPE_BUY:
         // Strong uptrend - the histogram is located above balance line.
         // When the histogram is above zero level, but the beams are directed downwards (the tendency to decrease),
         // then we can assume that, despite the still bullish sentiments on the market, their strength is weakening.
-        _result = _indi[CURR][0] > 0 && _indi.IsIncreasing(3);
-        _result &= _indi.IsIncByPct(_level, 0, 0, 2);
-        if (_result && _method != 0) {
-          if (METHOD(_method, 0)) _result &= _indi.IsIncreasing(2, 0, 3);
-          if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, 0, 5);
-          // The growth of histogram, which is below zero, suggests that,
-          // while sellers dominate the market, their strength begins to weaken and buyers gradually increase their
-          // interest.
-          if (METHOD(_method, 2)) _result &= _indi[PPREV][0] < 0;
-          // @todo: Divergence situations between the price schedule and Bulls Power histogram - a traditionally strong
-          // reversal signal.
-        }
+        _result &= _indi[CURR][0] > 0;
+        _result &= _indi.IsIncreasing(1);
+        _result &= _indi.IsIncByPct(_level, 0, 0, 3);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // @todo
+        // The growth of histogram, which is below zero, suggests that,
+        // while sellers dominate the market, their strength begins to weaken and buyers gradually increase their
+        // interest.
+        // @todo: Divergence situations between the price schedule and Bulls Power histogram - a traditionally strong
+        // reversal signal.
         break;
       case ORDER_TYPE_SELL:
         // Histogram is below zero level.
         // When the histogram passes through the zero level from top down,
         // bulls lost control of the market and bears increase pressure; waiting for price to turn down.
-        _result = _indi[CURR][0] < 0 && _indi.IsDecreasing(3);
-        _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
-        if (_result && _method != 0) {
-          // When histogram is below zero level, but with the rays pointing upwards (upward trend),
-          // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
-          // weaken.
-          if (METHOD(_method, 0)) _result &= _indi.IsDecreasing(2, 0, 3);
-          if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, 0, 5);
-          // If the histogram is above zero level, but the beams are directed downwards (the tendency to decrease),
-          // then we can assume that, despite the still bullish sentiments on the market, their strength is weakening
-          if (METHOD(_method, 2)) _result &= _indi[PPREV][0] > 0;
-          // @todo: Divergence situations between the price schedule and Bulls Power histogram - a traditionally strong
-          // reversal signal.
-        }
+        _result &= _indi[CURR][0] < 0;
+        _result &= _indi.IsDecreasing(1);
+        _result &= _indi.IsDecByPct(-_level, 0, 0, 3);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // @todo
+        // When histogram is below zero level, but with the rays pointing upwards (upward trend),
+        // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
+        // weaken.
+        // @todo
+        // If the histogram is above zero level, but the beams are directed downwards (the tendency to decrease),
+        // then we can assume that, despite the still bullish sentiments on the market, their strength is weakening
+        // @todo: Divergence situations between the price schedule and Bulls Power histogram - a traditionally strong
+        // reversal signal.
         break;
     }
     return _result;
