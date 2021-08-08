@@ -4,23 +4,22 @@
  */
 
 // User input params.
-INPUT string __BullsPower_Parameters__ = "-- BullsPower strategy params --";  // >>> BULLS POWER <<<
-INPUT float BullsPower_LotSize = 0;                                           // Lot size
-INPUT int BullsPower_SignalOpenMethod = 2;                                    // Signal open method (-127-127)
-INPUT float BullsPower_SignalOpenLevel = 0.0f;                                // Signal open level
-INPUT int BullsPower_SignalOpenFilterMethod = 32;                             // Signal filter method
-INPUT int BullsPower_SignalOpenBoostMethod = 0;                               // Signal boost method
-INPUT int BullsPower_SignalCloseMethod = 2;                                   // Signal close method
-INPUT float BullsPower_SignalCloseLevel = 0.0f;                               // Signal close level
-INPUT int BullsPower_PriceStopMethod = 1;                                     // Price stop method
-INPUT float BullsPower_PriceStopLevel = 0;                                    // Price stop level
-INPUT int BullsPower_TickFilterMethod = 32;                                   // Tick filter method
-INPUT float BullsPower_MaxSpread = 4.0;                                       // Max spread to trade (pips)
-INPUT short BullsPower_Shift = 0;           // Shift (relative to the current bar, 0 - default)
-INPUT int BullsPower_OrderCloseTime = -20;  // Order close time in mins (>0) or bars (<0)
-INPUT string __BullsPower_Indi_BullsPower_Parameters__ =
-    "-- BullsPower strategy: BullsPower indicator params --";  // >>> BullsPower strategy: BullsPower indicator <<<
-INPUT int BullsPower_Indi_BullsPower_Period = 13;              // Period
+INPUT_GROUP("BullsPower strategy: strategy params");
+INPUT float BullsPower_LotSize = 0;                // Lot size
+INPUT int BullsPower_SignalOpenMethod = 2;         // Signal open method (-127-127)
+INPUT float BullsPower_SignalOpenLevel = 0.0f;     // Signal open level
+INPUT int BullsPower_SignalOpenFilterMethod = 32;  // Signal filter method
+INPUT int BullsPower_SignalOpenBoostMethod = 0;    // Signal boost method
+INPUT int BullsPower_SignalCloseMethod = 2;        // Signal close method
+INPUT float BullsPower_SignalCloseLevel = 0.0f;    // Signal close level
+INPUT int BullsPower_PriceStopMethod = 1;          // Price stop method
+INPUT float BullsPower_PriceStopLevel = 0;         // Price stop level
+INPUT int BullsPower_TickFilterMethod = 32;        // Tick filter method
+INPUT float BullsPower_MaxSpread = 4.0;            // Max spread to trade (pips)
+INPUT short BullsPower_Shift = 0;                  // Shift (relative to the current bar, 0 - default)
+INPUT int BullsPower_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
+INPUT_GROUP("BullsPower strategy: BullsPower indicator params");
+INPUT int BullsPower_Indi_BullsPower_Period = 13;                                 // Period
 INPUT ENUM_APPLIED_PRICE BullsPower_Indi_BullsPower_Applied_Price = PRICE_CLOSE;  // Applied Price
 INPUT int BullsPower_Indi_BullsPower_Shift = 0;                                   // Shift
 
