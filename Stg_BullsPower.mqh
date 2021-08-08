@@ -11,6 +11,7 @@ INPUT float BullsPower_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int BullsPower_SignalOpenFilterMethod = 32;  // Signal filter method
 INPUT int BullsPower_SignalOpenBoostMethod = 0;    // Signal boost method
 INPUT int BullsPower_SignalCloseMethod = 2;        // Signal close method
+INPUT int BullsPower_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT float BullsPower_SignalCloseLevel = 0.0f;    // Signal close level
 INPUT int BullsPower_PriceStopMethod = 1;          // Price stop method
 INPUT float BullsPower_PriceStopLevel = 0;         // Price stop level
@@ -36,9 +37,10 @@ struct Indi_BullsPower_Params_Defaults : BullsPowerParams {
 struct Stg_BullsPower_Params_Defaults : StgParams {
   Stg_BullsPower_Params_Defaults()
       : StgParams(::BullsPower_SignalOpenMethod, ::BullsPower_SignalOpenFilterMethod, ::BullsPower_SignalOpenLevel,
-                  ::BullsPower_SignalOpenBoostMethod, ::BullsPower_SignalCloseMethod, ::BullsPower_SignalCloseLevel,
-                  ::BullsPower_PriceStopMethod, ::BullsPower_PriceStopLevel, ::BullsPower_TickFilterMethod,
-                  ::BullsPower_MaxSpread, ::BullsPower_Shift, ::BullsPower_OrderCloseTime) {}
+                  ::BullsPower_SignalOpenBoostMethod, ::BullsPower_SignalCloseMethod, ::BullsPower_SignalCloseFilter,
+                  ::BullsPower_SignalCloseLevel, ::BullsPower_PriceStopMethod, ::BullsPower_PriceStopLevel,
+                  ::BullsPower_TickFilterMethod, ::BullsPower_MaxSpread, ::BullsPower_Shift,
+                  ::BullsPower_OrderCloseTime) {}
 } stg_bulls_defaults;
 
 // Struct to define strategy parameters to override.
