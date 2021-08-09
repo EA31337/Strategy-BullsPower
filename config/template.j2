@@ -18,7 +18,7 @@ struct Stg_BullsPower_Params_{{ Timeframe }} : StgParams {
   Stg_BullsPower_Params_{{ Timeframe }}() : StgParams(stg_bulls_defaults) {
     lot_size = {{ BullsPower_LotSize | default(0) }};
     signal_open_method = {{ BullsPower_SignalOpenMethod | default(0) }};
-    signal_open_filter = {{ BullsPower_SignalOpenFilterMethod | default(1) }};
+    signal_open_filter_method = {{ BullsPower_SignalOpenFilterMethod | default(1) }};
     signal_open_level = (float){{ BullsPower_SignalOpenLevel | default(0) }};
     signal_open_boost = {{ BullsPower_SignalOpenBoostMethod | default(0) }};
     signal_close_method = {{ BullsPower_SignalCloseMethod | default(0) }};

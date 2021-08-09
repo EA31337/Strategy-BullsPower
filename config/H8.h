@@ -18,7 +18,6 @@ struct stg_bulls_Params_H8 : StgParams {
   stg_bulls_Params_H8() : StgParams(stg_bulls_defaults) {
     lot_size = 0;
     signal_open_method = 2;
-    signal_open_filter = 32;
     signal_open_level = (float)0;
     signal_open_boost = 0;
     signal_close_method = 2;
