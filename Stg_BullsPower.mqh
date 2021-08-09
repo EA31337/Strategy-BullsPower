@@ -9,6 +9,7 @@ INPUT float BullsPower_LotSize = 0;                // Lot size
 INPUT int BullsPower_SignalOpenMethod = 2;         // Signal open method (-127-127)
 INPUT float BullsPower_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int BullsPower_SignalOpenFilterMethod = 32;  // Signal filter method
+INPUT int BullsPower_SignalOpenFilterTime = 6;     // Signal filter time
 INPUT int BullsPower_SignalOpenBoostMethod = 0;    // Signal boost method
 INPUT int BullsPower_SignalCloseMethod = 2;        // Signal close method
 INPUT int BullsPower_SignalCloseFilter = 0;        // Signal close filter (-127-127)
@@ -45,6 +46,7 @@ struct Stg_BullsPower_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCL, BullsPower_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, BullsPower_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, BullsPower_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, BullsPower_SignalOpenFilterTime);
   }
 } stg_bulls_defaults;
 
