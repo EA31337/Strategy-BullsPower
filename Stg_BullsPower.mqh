@@ -6,15 +6,15 @@
 // User input params.
 INPUT_GROUP("BullsPower strategy: strategy params");
 INPUT float BullsPower_LotSize = 0;                // Lot size
-INPUT int BullsPower_SignalOpenMethod = 2;         // Signal open method (-127-127)
-INPUT float BullsPower_SignalOpenLevel = 0.0f;     // Signal open level
+INPUT int BullsPower_SignalOpenMethod = 0;         // Signal open method (-127-127)
+INPUT float BullsPower_SignalOpenLevel = 300.0f;   // Signal open level
 INPUT int BullsPower_SignalOpenFilterMethod = 32;  // Signal filter method
 INPUT int BullsPower_SignalOpenFilterTime = 6;     // Signal filter time
 INPUT int BullsPower_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT int BullsPower_SignalCloseMethod = 2;        // Signal close method
+INPUT int BullsPower_SignalCloseMethod = 0;        // Signal close method
 INPUT int BullsPower_SignalCloseFilter = 0;        // Signal close filter (-127-127)
-INPUT float BullsPower_SignalCloseLevel = 0.0f;    // Signal close level
-INPUT int BullsPower_PriceStopMethod = 1;          // Price stop method
+INPUT float BullsPower_SignalCloseLevel = 900.0f;  // Signal close level
+INPUT int BullsPower_PriceStopMethod = 1;          // Price stop method (0-127)
 INPUT float BullsPower_PriceStopLevel = 0;         // Price stop level
 INPUT int BullsPower_TickFilterMethod = 32;        // Tick filter method
 INPUT float BullsPower_MaxSpread = 4.0;            // Max spread to trade (pips)
@@ -23,7 +23,7 @@ INPUT float BullsPower_OrderCloseLoss = 0;         // Order close loss
 INPUT float BullsPower_OrderCloseProfit = 0;       // Order close profit
 INPUT int BullsPower_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("BullsPower strategy: BullsPower indicator params");
-INPUT int BullsPower_Indi_BullsPower_Period = 13;                                 // Period
+INPUT int BullsPower_Indi_BullsPower_Period = 30;                                 // Period
 INPUT ENUM_APPLIED_PRICE BullsPower_Indi_BullsPower_Applied_Price = PRICE_CLOSE;  // Applied Price
 INPUT int BullsPower_Indi_BullsPower_Shift = 0;                                   // Shift
 
@@ -115,7 +115,7 @@ class Stg_BullsPower : public Strategy {
         // When the histogram is above zero level, but the beams are directed downwards (the tendency to decrease),
         // then we can assume that, despite the still bullish sentiments on the market, their strength is weakening.
         _result &= _indi[CURR][0] > 0;
-        _result &= _indi.IsIncreasing(1);
+        _result &= _indi.IsIncreasing(2);
         _result &= _indi.IsIncByPct(_level, 0, 0, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo
@@ -130,7 +130,7 @@ class Stg_BullsPower : public Strategy {
         // When the histogram passes through the zero level from top down,
         // bulls lost control of the market and bears increase pressure; waiting for price to turn down.
         _result &= _indi[CURR][0] < 0;
-        _result &= _indi.IsDecreasing(1);
+        _result &= _indi.IsDecreasing(2);
         _result &= _indi.IsDecByPct(-_level, 0, 0, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo
