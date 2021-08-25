@@ -21,7 +21,7 @@ INPUT float BullsPower_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short BullsPower_Shift = 0;                  // Shift (relative to the current bar, 0 - default)
 INPUT float BullsPower_OrderCloseLoss = 0;         // Order close loss
 INPUT float BullsPower_OrderCloseProfit = 0;       // Order close profit
-INPUT int BullsPower_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
+INPUT int BullsPower_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("BullsPower strategy: BullsPower indicator params");
 INPUT int BullsPower_Indi_BullsPower_Period = 30;                                 // Period
 INPUT ENUM_APPLIED_PRICE BullsPower_Indi_BullsPower_Applied_Price = PRICE_CLOSE;  // Applied Price
