@@ -43,6 +43,7 @@ struct Stg_BullsPower_Params_Defaults : StgParams {
                   ::BullsPower_SignalOpenBoostMethod, ::BullsPower_SignalCloseMethod, ::BullsPower_SignalCloseFilter,
                   ::BullsPower_SignalCloseLevel, ::BullsPower_PriceStopMethod, ::BullsPower_PriceStopLevel,
                   ::BullsPower_TickFilterMethod, ::BullsPower_MaxSpread, ::BullsPower_Shift) {
+    Set(STRAT_PARAM_LS, BullsPower_LotSize);
     Set(STRAT_PARAM_OCL, BullsPower_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, BullsPower_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, BullsPower_OrderCloseTime);
