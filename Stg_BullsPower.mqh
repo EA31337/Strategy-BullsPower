@@ -34,7 +34,7 @@ struct Indi_BullsPower_Params_Defaults : BullsPowerParams {
   Indi_BullsPower_Params_Defaults()
       : BullsPowerParams(::BullsPower_Indi_BullsPower_Period, ::BullsPower_Indi_BullsPower_Applied_Price,
                          ::BullsPower_Indi_BullsPower_Shift) {}
-} indi_bulls_defaults;
+};
 
 // Defines struct with default user strategy values.
 struct Stg_BullsPower_Params_Defaults : StgParams {
@@ -49,7 +49,7 @@ struct Stg_BullsPower_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCT, BullsPower_OrderCloseTime);
     Set(STRAT_PARAM_SOFT, BullsPower_SignalOpenFilterTime);
   }
-} stg_bulls_defaults;
+};
 
 #ifdef __config__
 // Loads pair specific param values.
@@ -69,7 +69,9 @@ class Stg_BullsPower : public Strategy {
 
   static Stg_BullsPower *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
+    Indi_BullsPower_Params_Defaults indi_bulls_defaults;
     BullsPowerParams _indi_params(indi_bulls_defaults, _tf);
+    Stg_BullsPower_Params_Defaults stg_bulls_defaults;
     StgParams _stg_params(stg_bulls_defaults);
 #ifdef __config__
     SetParamsByTf<BullsPowerParams>(_indi_params, _tf, indi_bulls_m1, indi_bulls_m5, indi_bulls_m15, indi_bulls_m30,
