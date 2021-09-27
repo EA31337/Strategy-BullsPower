@@ -80,11 +80,11 @@ class Stg_BullsPower : public Strategy {
                              stg_bulls_h4, stg_bulls_h8);
 #endif
     // Initialize indicator.
-    _stg_params.SetIndicator(new Indi_BullsPower(_indi_params));
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
     Strategy *_strat = new Stg_BullsPower(_stg_params, _tparams, _cparams, "BullsPower");
+    _strat.SetIndicator(new Indi_BullsPower(_indi_params));
     return _strat;
   }
 
