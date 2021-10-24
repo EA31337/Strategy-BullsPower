@@ -30,10 +30,10 @@ INPUT int BullsPower_Indi_BullsPower_Shift = 0;                                 
 // Structs.
 
 // Defines struct with default user indicator values.
-struct Indi_BullsPower_Params_Defaults : BullsPowerParams {
+struct Indi_BullsPower_Params_Defaults : IndiBullsPowerParams {
   Indi_BullsPower_Params_Defaults()
-      : BullsPowerParams(::BullsPower_Indi_BullsPower_Period, ::BullsPower_Indi_BullsPower_Applied_Price,
-                         ::BullsPower_Indi_BullsPower_Shift) {}
+      : IndiBullsPowerParams(::BullsPower_Indi_BullsPower_Period, ::BullsPower_Indi_BullsPower_Applied_Price,
+                             ::BullsPower_Indi_BullsPower_Shift) {}
 };
 
 // Defines struct with default user strategy values.
@@ -70,12 +70,12 @@ class Stg_BullsPower : public Strategy {
   static Stg_BullsPower *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
     Indi_BullsPower_Params_Defaults indi_bulls_defaults;
-    BullsPowerParams _indi_params(indi_bulls_defaults, _tf);
+    IndiBullsPowerParams _indi_params(indi_bulls_defaults, _tf);
     Stg_BullsPower_Params_Defaults stg_bulls_defaults;
     StgParams _stg_params(stg_bulls_defaults);
 #ifdef __config__
-    SetParamsByTf<BullsPowerParams>(_indi_params, _tf, indi_bulls_m1, indi_bulls_m5, indi_bulls_m15, indi_bulls_m30,
-                                    indi_bulls_h1, indi_bulls_h4, indi_bulls_h8);
+    SetParamsByTf<IndiBullsPowerParams>(_indi_params, _tf, indi_bulls_m1, indi_bulls_m5, indi_bulls_m15, indi_bulls_m30,
+                                        indi_bulls_h1, indi_bulls_h4, indi_bulls_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_bulls_m1, stg_bulls_m5, stg_bulls_m15, stg_bulls_m30, stg_bulls_h1,
                              stg_bulls_h4, stg_bulls_h8);
 #endif
