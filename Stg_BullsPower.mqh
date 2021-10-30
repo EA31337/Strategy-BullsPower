@@ -29,13 +29,6 @@ INPUT int BullsPower_Indi_BullsPower_Shift = 0;                                 
 
 // Structs.
 
-// Defines struct with default user indicator values.
-struct Indi_BullsPower_Params_Defaults : IndiBullsPowerParams {
-  Indi_BullsPower_Params_Defaults()
-      : IndiBullsPowerParams(::BullsPower_Indi_BullsPower_Period, ::BullsPower_Indi_BullsPower_Applied_Price,
-                             ::BullsPower_Indi_BullsPower_Shift) {}
-};
-
 // Defines struct with default user strategy values.
 struct Stg_BullsPower_Params_Defaults : StgParams {
   Stg_BullsPower_Params_Defaults()
@@ -87,8 +80,9 @@ class Stg_BullsPower : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    Indi_BullsPower_Params_Defaults indi_bulls_defaults;
-    IndiBullsPowerParams _indi_params(indi_bulls_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    IndiBullsPowerParams _indi_params(::BullsPower_Indi_BullsPower_Period, ::BullsPower_Indi_BullsPower_Applied_Price,
+                                      ::BullsPower_Indi_BullsPower_Shift);
+    _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_BullsPower(_indi_params));
   }
 
