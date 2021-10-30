@@ -69,13 +69,9 @@ class Stg_BullsPower : public Strategy {
 
   static Stg_BullsPower *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
-    Indi_BullsPower_Params_Defaults indi_bulls_defaults;
-    IndiBullsPowerParams _indi_params(indi_bulls_defaults, _tf);
     Stg_BullsPower_Params_Defaults stg_bulls_defaults;
     StgParams _stg_params(stg_bulls_defaults);
 #ifdef __config__
-    SetParamsByTf<IndiBullsPowerParams>(_indi_params, _tf, indi_bulls_m1, indi_bulls_m5, indi_bulls_m15, indi_bulls_m30,
-                                        indi_bulls_h1, indi_bulls_h4, indi_bulls_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_bulls_m1, stg_bulls_m5, stg_bulls_m15, stg_bulls_m30, stg_bulls_h1,
                              stg_bulls_h4, stg_bulls_h8);
 #endif
@@ -84,8 +80,16 @@ class Stg_BullsPower : public Strategy {
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
     Strategy *_strat = new Stg_BullsPower(_stg_params, _tparams, _cparams, "BullsPower");
-    _strat.SetIndicator(new Indi_BullsPower(_indi_params));
     return _strat;
+  }
+
+  /**
+   * Event on strategy's init.
+   */
+  void OnInit() {
+    Indi_BullsPower_Params_Defaults indi_bulls_defaults;
+    IndiBullsPowerParams _indi_params(indi_bulls_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    SetIndicator(new Indi_BullsPower(_indi_params));
   }
 
   /**
