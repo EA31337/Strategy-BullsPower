@@ -104,8 +104,8 @@ class Stg_BullsPower : public Strategy {
         // When the histogram is above zero level, but the beams are directed downwards (the tendency to decrease),
         // then we can assume that, despite the still bullish sentiments on the market, their strength is weakening.
         _result &= _indi[CURR][0] > 0;
-        _result &= _indi.IsIncreasing(2);
-        _result &= _indi.IsIncByPct(_level, 0, 0, 3);
+        _result &= _indi.IsIncreasing(2, 0, _shift);
+        _result &= _indi.IsIncByPct(_level, 0, _shift, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo
         // The growth of histogram, which is below zero, suggests that,
@@ -119,8 +119,8 @@ class Stg_BullsPower : public Strategy {
         // When the histogram passes through the zero level from top down,
         // bulls lost control of the market and bears increase pressure; waiting for price to turn down.
         _result &= _indi[CURR][0] < 0;
-        _result &= _indi.IsDecreasing(2);
-        _result &= _indi.IsDecByPct(-_level, 0, 0, 3);
+        _result &= _indi.IsDecreasing(2, 0, _shift);
+        _result &= _indi.IsDecByPct(-_level, 0, _shift, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo
         // When histogram is below zero level, but with the rays pointing upwards (upward trend),
