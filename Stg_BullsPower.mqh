@@ -60,7 +60,7 @@ class Stg_BullsPower : public Strategy {
   Stg_BullsPower(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_BullsPower *Init(ENUM_TIMEFRAMES _tf = NULL) {
+  static Stg_BullsPower *Init(ENUM_TIMEFRAMES _tf = NULL, EA* _ea = NULL) {
     // Initialize strategy initial values.
     Stg_BullsPower_Params_Defaults stg_bulls_defaults;
     StgParams _stg_params(stg_bulls_defaults);
